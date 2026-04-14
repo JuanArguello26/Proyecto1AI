@@ -1,0 +1,200 @@
+================================================================================
+        SISTEMA DE ENCUESTAS DE OPINIÓN - EXPLICACIÓN COMPLETA
+================================================================================
+
+OBJETIVO DEL PROYECTO
+--------------------------------------------------------------------------------
+Este programa es un sistema de encuestas de opinión que permite registrar 
+las opiniones de diferentes personas sobre un tema específico, recopilando datos 
+como nombre, edad, género y calificación. Luego procesa y analiza los datos 
+para mostrar estadísticas útiles.
+
+TECNOLOGÍAS UTILIZADAS
+--------------------------------------------------------------------------------
+- Python: Lenguaje de programación principal
+- Pandas: Biblioteca para manejo y análisis de datos (estructuras DataFrame)
+
+
+ESTRUCTURA DEL CÓDIGO
+================================================================================
+
+1. IMPORTACIÓN DE BIBLIOTECAS (Línea 1)
+--------------------------------------------------------------------------------
+   import pandas as pd
+   
+   Se importa la librería pandas con el alias "pd" para manejar datos en 
+   forma de DataFrame, que es como una tabla estructurada.
+
+
+2. VARIABLE PRINCIPAL (Línea 3)
+--------------------------------------------------------------------------------
+   opiniones = []
+   
+   Se crea una lista vacía llamada "opiniones" donde se almacenarán los 
+   diccionarios con los datos de cada persona que participe en la encuesta.
+
+
+3. ENCABEZADO DEL PROGRAMA (Líneas 5-6)
+--------------------------------------------------------------------------------
+   print("=== SISTEMA DE ENCUESTAS DE OPINION ===")
+   print()
+   
+   Se muestra un mensaje de bienvenida para iniciar el programa.
+
+
+4. BUCLE PRINCIPAL DE REGISTRO (Líneas 8-33)
+--------------------------------------------------------------------------------
+   continuar = True
+   while continuar:
+       # Código para registrar opiniones...
+   
+   Este bucle "while" permite registrar múltiples opiniones de forma sucesiva.
+   La variable "continuar" controla si el bucle sigue ejecutándose.
+   
+   - Línea 10: Muestra el encabezado "--- Registro de opinion ---"
+   
+   - Línea 11: input("Nombre: ")
+     Solicita el nombre de la persona y lo guarda como texto.
+   
+   - Línea 12: edad = int(input("Edad: "))
+     Solicita la edad y la convierte a número entero (int).
+   
+   - Línea 13: genero = input("Genero (M/F/O): ")
+     Solicita el género con tres opciones:
+     M = Masculino
+     F = Femenino
+     O = Otro
+   
+   - Líneas 15-19: Validación de calificación
+     while True:
+         calif = int(input("Calificacion (1-5): "))
+         if calif >= 1 and calif <= 5:
+             break
+         print("Error: La calificacion debe estar entre 1 y 5")
+     
+     Este bucle interno valida que la calificación esté entre 1 y 5.
+     Si el usuario ingresa un número fuera de ese rango, se muestra un 
+     mensaje de error y se pide nuevamente la calificación.
+   
+   - Líneas 21-26: Creación del diccionario de persona
+     persona = {
+         "nombre": nombre,
+         "edad": edad,
+         "genero": genero,
+         "calificacion": calif
+     }
+     opiniones.append(persona)
+     
+     Se crea un diccionario con los datos de la persona actual y se agrega 
+     a la lista "opiniones".
+   
+   - Líneas 30-33: Preguntar si desea continuar
+     respuesta = input("Desea continuar? (s/n): ")
+     if respuesta.lower() != "s":
+         continuar = False
+     
+     Se pregunta si el usuario quiere registrar otra opinión.
+     Si responde algo diferente de "s" (o "S"), el bucle principal termina.
+
+
+5. CONVERSIÓN A DATAFRAME (Línea 35)
+--------------------------------------------------------------------------------
+   df = pd.DataFrame(opiniones)
+   
+   Se convierte la lista de diccionarios en un DataFrame de pandas,
+   que es una estructura de datos tabular. Cada diccionario 
+   se convierte en una fila y cada clave en una columna.
+
+
+6. SECCIÓN DE RESULTADOS (Líneas 37-49)
+--------------------------------------------------------------------------------
+   print("=== RESULTADOS ===")
+   print()
+   
+   Encabezado de la sección de resultados.
+
+   - Línea 40: print("Promedio de calificacion:", df["calificacion"].mean())
+     Calcula y muestra el promedio de todas las calificaciónes.
+     .mean() es una función de pandas que calcula la media aritmética.
+
+   - Líneas 43-44: print("Cantidad de opiniones por genero:")
+     print(df["genero"].value_counts())
+     
+     Cuenta cuántas personas hay de cada género.
+     .value_counts() es una función de pandas que cuenta valores únicos.
+
+   - Líneas 47-49: print("Opiniones con calificacion menor a 3:")
+     bajo_3 = df[df["calificacion"] < 3]
+     print(bajo_3)
+     
+     Filtra y muestra las opiniones que tienen calificación menor a 3,
+     indicando insatisfacción o valoración negativa.
+
+
+CÓMO EJECUTAR EL PROGRAMA
+================================================================================
+
+1. Asegúrate de tener Python instalado en tu computadora.
+
+2. Asegúrate de tener la librería pandas instalada:
+   pip install pandas
+
+3. Ejecuta el programa desde la terminal:
+   python encuesta.py
+
+4. Sigue las instrucciones que aparecen en pantalla:
+   - Ingresa los datos de cada persona
+   - Responde "s" para continuar registrando más opiniones
+   - Responde "n" para terminar y ver los resultados
+
+
+EJEMPLO DE EJECUCIÓN
+================================================================================
+
+=== SISTEMA DE ENCUESTAS DE OPINION ===
+
+--- Registro de opinion ---
+Nombre: Juan
+Edad: 25
+Genero (M/F/O): M
+Calificacion (1-5): 4
+
+Desea continuar? (s/n): s
+
+--- Registro de opinion ---
+Nombre: Maria
+Edad: 30
+Genero (F/F/O): F
+Calificacion (1-5): 2
+
+Desea continuar? (s/n): n
+
+=== RESULTADOS ===
+
+Promedio de calificacion: 3.0
+
+Cantidad de opiniones por genero:
+F    1
+M    1
+
+Opiniones con calificacion menor a 3:
+  nombre  edad genero  calificacion
+1   Maria    30      F             2
+
+
+CONCEPTOS CLAVE APRENDIDOS
+================================================================================
+
+-input(): Función para recibir datos del usuario
+-int(): Convierte texto a número entero
+-listas: Estructura para almacenar múltiples elementos
+-diccionarios: Estructura clave-valor para representar objetos
+-DataFrame: Estructura tabular de pandas
+-.mean(): Calcula promedio
+-.value_counts(): Cuenta elementos únicos
+-filtrado de datos: Seleccionar filas según condiciones
+
+
+================================================================================
+                    FIN DEL DOCUMENTO
+================================================================================
