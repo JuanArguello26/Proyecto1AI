@@ -36,16 +36,27 @@ while continuar:
 
 df = pd.DataFrame(opiniones)
 
+promedio = df["calificacion"].mean()
+por_genero = df["genero"].value_counts().reset_index()
+por_genero.columns = ["genero", "cantidad"]
+bajo_3 = df[df["calificacion"] < 3]
+
 print("=== RESULTADOS ===")
 print()
 
-print("Promedio de calificacion:", df["calificacion"].mean())
+print("Promedio de calificacion:", promedio)
 print()
 
 print("Cantidad de opiniones por genero:")
-print(df["genero"].value_counts())
+print(por_genero)
 print()
 
 print("Opiniones con calificacion menor a 3:")
-bajo_3 = df[df["calificacion"] < 3]
 print(bajo_3)
+
+df.to_excel("encuesta_datos.xlsx", index=False)
+por_genero.to_excel("encuesta_por_genero.xlsx", index=False)
+bajo_3.to_excel("encuesta_bajo_3.xlsx", index=False)
+
+print()
+print("Archivos exportados: encuesta_datos.xlsx, encuesta_por_genero.xlsx, encuesta_bajo_3.xlsx")
